@@ -80,9 +80,29 @@ async function loadMembersAndInvites() {
     return `<div class="mini-item"><div class="mini-avatar">✉</div><div><strong>${profile?.name || invite.email}</strong><small>${invite.email} · berlaku sampai ${new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short'}).format(new Date(invite.expires_at))}</small></div><span>${invite.invite_code}</span></div>`;
   });
   $('membersList').innerHTML = [...memberRows, ...inviteRows].join('') || '<div class="empty-state">Belum ada anggota.</div>';
+
   const eligibleProfiles = profiles.filter((profile) => profile.role === 'parent' && !profile.auth_user_id);
   $('inviteProfile').innerHTML = eligibleProfiles.map((profile) => `<option value="${profile.id}">${profile.emoji || '👤'} ${profile.name}</option>`).join('');
-  $('inviteForm').classList.toggle('hidden', eligibleProfiles.length === 0);
+
+  if (eligibleProfiles.length === 0) {
+    $('inviteForm').classList.add('hidden');
+    $('inviteResult').classList.remove('hidden');
+    $('inviteResult').innerHTML = `
+      <strong>Belum ada profil yang bisa diundang</strong>
+      <small>Buat profil istri lebih dulu melalui menu Profil keluarga. Pilih peran Orang tua dan hubungan Istri.</small>
+      <button id="createSpouseProfileBtn" class="btn secondary" type="button">Buat profil istri</button>`;
+    $('createSpouseProfileBtn').addEventListener('click', () => {
+      $('membersDialog').close();
+      renderProfilesManager();
+      $('newProfileRole').value = 'parent';
+      $('newProfileRelationship').value = 'wife';
+      $('newProfileEmoji').value = '👩';
+      $('profilesDialog').showModal();
+      setTimeout(() => $('newProfileName').focus(), 100);
+    });
+  } else {
+    $('inviteForm').classList.remove('hidden');
+  }
 }
 
 async function createInvitation(event) {

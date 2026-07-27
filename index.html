@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="ui-upgrade.css?v=1" />
 </head>
 <body>
 <main class="shell">
@@ -49,5 +50,5 @@
 <dialog id="membersDialog"><div class="dialog-card"><div class="dialog-head"><h3>Anggota & undangan</h3><button type="button" class="modal-close">×</button></div><div id="membersList" class="mini-list"></div><form id="inviteForm" class="subform"><label>Profil yang dihubungkan<select id="inviteProfile"></select></label><label>Email anggota<input id="inviteEmail" type="email" required placeholder="email istri"></label><label>Hak akses<select id="inviteRole"><option value="admin">Admin keluarga</option><option value="member">Member</option><option value="viewer">Viewer</option></select></label><button class="btn primary" type="submit">Buat undangan</button></form><div id="inviteResult" class="invite-result hidden"></div></div></dialog>
 <dialog id="joinDialog"><form id="joinForm" class="dialog-card"><div class="dialog-head"><h3>Gabung keluarga</h3><button type="button" class="modal-close">×</button></div><label>Kode undangan<input id="joinCode" required placeholder="UJ-XXXXXXXX" autocomplete="off"></label><button class="btn primary" type="submit">Gabung sekarang</button></form></dialog>
 <div id="toast" class="toast"></div>
-<script src="auth-fix.js?v=1"></script><script src="app.js?v=2"></script><script src="management.js?v=1"></script><script src="invite.js?v=1"></script>
+<script src="auth-fix.js?v=1"></script><script src="app.js?v=2"></script><script src="management.js?v=1"></script><script src="invite.js?v=1"></script><script src="ui-upgrade.js?v=1"></script>
 </body></html>

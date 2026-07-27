@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1726" />
+  <title>UangKu — Keuangan Keluarga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+  <main class="shell">
+    <section id="authView" class="auth-view">
+      <div class="brand-mark">U</div>
+      <p class="eyebrow">KEUANGAN KELUARGA</p>
+      <h1>UangKu</h1>
+      <p class="muted">Pendapatan, pengeluaran, transfer keluarga, saldo anak, dan talangan dalam satu tempat.</p>
+      <form id="authForm" class="card auth-card">
+        <label>Email<input id="email" type="email" required autocomplete="email" placeholder="nama@email.com"></label>
+        <label>Password<input id="password" type="password" required minlength="6" autocomplete="current-password" placeholder="Minimal 6 karakter"></label>
+        <button class="btn primary" type="submit">Masuk</button>
+        <p id="authMessage" class="form-message"></p>
+      </form>
+    </section>
+
+    <section id="appView" class="app-view hidden">
+      <header class="topbar">
+        <div><p class="eyebrow">UANGKU</p><h1 id="householdName">Keuangan keluarga</h1></div>
+        <button id="logoutBtn" class="icon-btn" aria-label="Keluar">↗</button>
+      </header>
+
+      <section class="profile-strip">
+        <div><span class="muted-label">Profil aktif</span><strong id="activeProfileName">Saya</strong></div>
+        <select id="profileSelect" aria-label="Pilih profil"></select>
+      </section>
+
+      <section class="hero-card">
+        <div class="hero-top">
+          <div><p class="muted-light">Saldo profil</p><h2 id="profileBalance">Rp0</h2></div>
+          <span id="profileRole" class="pill">Orang tua</span>
+        </div>
+        <div class="hero-stats">
+          <div><span>Masuk bulan ini</span><strong id="monthIncome">Rp0</strong></div>
+          <div><span>Keluar bulan ini</span><strong id="monthExpense">Rp0</strong></div>
+        </div>
+      </section>
+
+      <section class="quick-actions">
+        <button class="quick-btn" data-action="income"><span>＋</span>Pendapatan</button>
+        <button class="quick-btn" data-action="expense"><span>−</span>Pengeluaran</button>
+        <button class="quick-btn" data-action="transfer"><span>⇄</span>Transfer</button>
+      </section>
+
+      <section class="family-grid">
+        <article class="stat-card"><span>Total keluarga</span><strong id="familyBalance">Rp0</strong><small>Seluruh akun aktif</small></article>
+        <article class="stat-card accent"><span>Talangan belum dibayar</span><strong id="pendingReimbursements">Rp0</strong><small>Pending dan partial</small></article>
+      </section>
+
+      <section class="section-head">
+        <div><p class="eyebrow">AKTIVITAS</p><h3>Transaksi terbaru</h3></div>
+        <select id="sourceFilter" class="compact-select"><option value="all">Semua sumber</option><option value="orderan">Orderan</option><option value="uangku">UangKu</option></select>
+      </section>
+      <div id="transactionList" class="transaction-list"></div>
+    </section>
+  </main>
+
+  <dialog id="transactionDialog">
+    <form id="transactionForm" class="dialog-card" method="dialog">
+      <div class="dialog-head"><h3 id="transactionDialogTitle">Tambah transaksi</h3><button type="button" class="close-btn">×</button></div>
+      <input id="transactionType" type="hidden">
+      <label>Nominal<input id="transactionAmount" type="number" min="1" inputmode="numeric" required placeholder="100000"></label>
+      <label id="categoryField">Kategori<select id="transactionCategory"></select></label>
+      <label id="accountField">Akun<select id="transactionAccount"></select></label>
+      <label id="transferFromField" class="hidden">Dari akun<select id="transferFrom"></select></label>
+      <label id="transferToField" class="hidden">Ke akun<select id="transferTo"></select></label>
+      <label>Tanggal dan waktu<input id="transactionAt" type="datetime-local" required></label>
+      <label>Keterangan<textarea id="transactionDescription" rows="2" placeholder="Opsional"></textarea></label>
+      <button class="btn primary" type="submit">Simpan transaksi</button>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js?v=1"></script>
+</body>
+</html>

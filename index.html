@@ -5,99 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1726" />
   <title>UangKu — Keuangan Keluarga</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
-  <main class="shell">
-    <section id="authView" class="auth-view">
-      <div class="brand-mark">U</div>
-      <p class="eyebrow">KEUANGAN KELUARGA</p>
-      <h1>UangKu</h1>
-      <p class="muted">Pendapatan, pengeluaran, transfer keluarga, saldo anak, dan talangan dalam satu tempat.</p>
-      <form id="authForm" class="card auth-card">
-        <label>Email<input id="email" type="email" required autocomplete="email" placeholder="nama@email.com"></label>
-        <label>Password<input id="password" type="password" required minlength="6" autocomplete="current-password" placeholder="Minimal 6 karakter"></label>
-        <button class="btn primary" type="submit">Masuk</button>
-        <p id="authMessage" class="form-message"></p>
-      </form>
-    </section>
-
-    <section id="appView" class="app-view hidden">
-      <header class="topbar">
-        <div><p class="eyebrow">UANGKU</p><h1 id="householdName">Keuangan keluarga</h1></div>
-        <button id="logoutBtn" class="icon-btn" aria-label="Keluar">↗</button>
-      </header>
-
-      <section class="profile-strip">
-        <div><span class="muted-label">Profil aktif</span><strong id="activeProfileName">Saya</strong></div>
-        <select id="profileSelect" aria-label="Pilih profil"></select>
-      </section>
-
-      <section class="hero-card">
-        <div class="hero-top">
-          <div><p class="muted-light">Saldo profil</p><h2 id="profileBalance">Rp0</h2></div>
-          <span id="profileRole" class="pill">Orang tua</span>
-        </div>
-        <div class="hero-stats">
-          <div><span>Masuk bulan ini</span><strong id="monthIncome">Rp0</strong></div>
-          <div><span>Keluar bulan ini</span><strong id="monthExpense">Rp0</strong></div>
-        </div>
-      </section>
-
-      <section class="quick-actions four">
-        <button class="quick-btn" data-action="income"><span>＋</span>Pendapatan</button>
-        <button class="quick-btn" data-action="expense"><span>−</span>Pengeluaran</button>
-        <button class="quick-btn" data-action="transfer"><span>⇄</span>Transfer</button>
-        <button id="advanceExpenseBtn" class="quick-btn"><span>⌁</span>Talangan Anak</button>
-      </section>
-
-      <section class="family-grid">
-        <article class="stat-card"><span>Total keluarga</span><strong id="familyBalance">Rp0</strong><small>Seluruh akun aktif</small></article>
-        <article id="reimbursementCard" class="stat-card accent clickable"><span>Talangan belum dibayar</span><strong id="pendingReimbursements">Rp0</strong><small>Ketuk untuk melihat detail</small></article>
-      </section>
-
-      <section class="management-grid">
-        <button id="manageProfilesBtn" class="manage-card"><span>👨‍👩‍👧‍👦</span><div><strong>Profil keluarga</strong><small>Tambah istri dan anak</small></div></button>
-        <button id="manageAccountsBtn" class="manage-card"><span>◫</span><div><strong>Akun & dompet</strong><small>Kelola tempat uang</small></div></button>
-      </section>
-
-      <section class="section-head">
-        <div><p class="eyebrow">AKTIVITAS</p><h3>Transaksi terbaru</h3></div>
-        <select id="sourceFilter" class="compact-select"><option value="all">Semua sumber</option><option value="orderan">Orderan</option><option value="uangku">UangKu</option></select>
-      </section>
-      <div id="transactionList" class="transaction-list"></div>
-    </section>
-  </main>
-
-  <dialog id="transactionDialog">
-    <form id="transactionForm" class="dialog-card" method="dialog">
-      <div class="dialog-head"><h3 id="transactionDialogTitle">Tambah transaksi</h3><button type="button" class="close-btn">×</button></div>
-      <input id="transactionType" type="hidden">
-      <label>Nominal<input id="transactionAmount" type="number" min="1" inputmode="numeric" required placeholder="100000"></label>
-      <label id="categoryField">Kategori<select id="transactionCategory"></select></label>
-      <label id="accountField">Akun<select id="transactionAccount"></select></label>
-      <label id="transferFromField" class="hidden">Dari akun<select id="transferFrom"></select></label>
-      <label id="transferToField" class="hidden">Ke akun<select id="transferTo"></select></label>
-      <label>Tanggal dan waktu<input id="transactionAt" type="datetime-local" required></label>
-      <label>Keterangan<textarea id="transactionDescription" rows="2" placeholder="Opsional"></textarea></label>
-      <button class="btn primary" type="submit">Simpan transaksi</button>
+<main class="shell">
+  <section id="authView" class="auth-view">
+    <div class="brand-mark">U</div><p class="eyebrow">KEUANGAN KELUARGA</p><h1>UangKu</h1>
+    <p class="muted">Pendapatan, pengeluaran, transfer keluarga, saldo anak, dan talangan dalam satu tempat.</p>
+    <form id="authForm" class="card auth-card">
+      <label>Email<input id="email" type="email" required autocomplete="email" placeholder="nama@email.com"></label>
+      <label>Password<input id="password" type="password" required minlength="6" autocomplete="current-password" placeholder="Minimal 6 karakter"></label>
+      <button class="btn primary" type="submit">Masuk</button>
+      <button id="signUpBtn" class="btn secondary" type="button">Daftar akun baru</button>
+      <p id="authMessage" class="form-message"></p>
     </form>
-  </dialog>
+  </section>
 
-  <dialog id="profilesDialog"><div class="dialog-card"><div class="dialog-head"><h3>Profil keluarga</h3><button type="button" class="modal-close">×</button></div><div id="profilesList" class="mini-list"></div><form id="profileForm" class="subform"><label>Nama<input id="newProfileName" required maxlength="40" placeholder="Contoh: Istri, Kakak"></label><div class="two-col"><label>Peran<select id="newProfileRole"><option value="parent">Orang tua</option><option value="child">Anak</option></select></label><label>Hubungan<select id="newProfileRelationship"><option value="wife">Istri</option><option value="child">Anak</option><option value="husband">Suami</option></select></label></div><label>Emoji<input id="newProfileEmoji" maxlength="8" value="👤"></label><button class="btn primary" type="submit">Tambah profil</button></form></div></dialog>
+  <section id="appView" class="app-view hidden">
+    <header class="topbar"><div><p class="eyebrow">UANGKU</p><h1 id="householdName">Keuangan keluarga</h1></div><button id="logoutBtn" class="icon-btn" aria-label="Keluar">↗</button></header>
+    <section id="joinHouseholdPanel" class="card join-panel hidden">
+      <p class="eyebrow">BELUM TERHUBUNG</p><h3>Gabung ke keluarga</h3><p class="muted">Masukkan kode undangan dari pemilik household.</p>
+      <button id="openJoinBtn" class="btn primary" type="button">Masukkan kode undangan</button>
+    </section>
+    <div id="mainFinanceContent">
+      <section class="profile-strip"><div><span class="muted-label">Profil aktif</span><strong id="activeProfileName">Saya</strong></div><select id="profileSelect" aria-label="Pilih profil"></select></section>
+      <section class="hero-card"><div class="hero-top"><div><p class="muted-light">Saldo profil</p><h2 id="profileBalance">Rp0</h2></div><span id="profileRole" class="pill">Orang tua</span></div><div class="hero-stats"><div><span>Masuk bulan ini</span><strong id="monthIncome">Rp0</strong></div><div><span>Keluar bulan ini</span><strong id="monthExpense">Rp0</strong></div></div></section>
+      <section class="quick-actions four"><button class="quick-btn" data-action="income"><span>＋</span>Pendapatan</button><button class="quick-btn" data-action="expense"><span>−</span>Pengeluaran</button><button class="quick-btn" data-action="transfer"><span>⇄</span>Transfer</button><button id="advanceExpenseBtn" class="quick-btn"><span>⌁</span>Talangan Anak</button></section>
+      <section class="family-grid"><article class="stat-card"><span>Total keluarga</span><strong id="familyBalance">Rp0</strong><small>Seluruh akun aktif</small></article><article id="reimbursementCard" class="stat-card accent clickable"><span>Talangan belum dibayar</span><strong id="pendingReimbursements">Rp0</strong><small>Ketuk untuk melihat detail</small></article></section>
+      <section class="management-grid"><button id="manageProfilesBtn" class="manage-card"><span>👨‍👩‍👧‍👦</span><div><strong>Profil keluarga</strong><small>Tambah istri dan anak</small></div></button><button id="manageAccountsBtn" class="manage-card"><span>◫</span><div><strong>Akun & dompet</strong><small>Kelola tempat uang</small></div></button><button id="manageMembersBtn" class="manage-card"><span>✉</span><div><strong>Anggota & undangan</strong><small>Hubungkan login istri</small></div></button></section>
+      <section class="section-head"><div><p class="eyebrow">AKTIVITAS</p><h3>Transaksi terbaru</h3></div><select id="sourceFilter" class="compact-select"><option value="all">Semua sumber</option><option value="orderan">Orderan</option><option value="uangku">UangKu</option></select></section>
+      <div id="transactionList" class="transaction-list"></div>
+    </div>
+  </section>
+</main>
 
-  <dialog id="accountsDialog"><div class="dialog-card"><div class="dialog-head"><h3>Akun & dompet</h3><button type="button" class="modal-close">×</button></div><div id="accountsList" class="mini-list"></div><form id="accountForm" class="subform"><label>Nama akun<input id="newAccountName" required maxlength="60" placeholder="Contoh: BCA Istri"></label><div class="two-col"><label>Pemilik<select id="newAccountProfile"></select></label><label>Jenis<select id="newAccountType"><option value="cash">Tunai</option><option value="bank">Bank</option><option value="ewallet">E-wallet</option><option value="virtual_balance">Saldo virtual</option></select></label></div><label>Saldo awal<input id="newAccountInitialBalance" type="number" min="0" value="0"></label><button class="btn primary" type="submit">Tambah akun</button></form></div></dialog>
-
-  <dialog id="advanceDialog"><form id="advanceForm" class="dialog-card"><div class="dialog-head"><h3>Pengeluaran anak ditalangi</h3><button type="button" class="modal-close">×</button></div><label>Anak<select id="advanceChild"></select></label><label>Dibayar dari akun<select id="advancePayerAccount"></select></label><label>Nominal<input id="advanceAmount" type="number" min="1" required></label><label>Kategori<select id="advanceCategory"></select></label><label>Keterangan<textarea id="advanceDescription" rows="2" placeholder="Contoh: Buku sekolah"></textarea></label><label>Tanggal dan waktu<input id="advanceAt" type="datetime-local" required></label><button class="btn primary" type="submit">Simpan talangan</button></form></dialog>
-
-  <dialog id="reimbursementsDialog"><div class="dialog-card"><div class="dialog-head"><h3>Talangan keluarga</h3><button type="button" class="modal-close">×</button></div><div id="reimbursementsList" class="mini-list"></div><form id="reimbursementForm" class="subform"><label>Dibayar dari akun<select id="reimbursementFrom"></select></label><label>Diterima di akun<select id="reimbursementTo"></select></label><label>Nominal pembayaran<input id="reimbursementAmount" type="number" min="1" required></label><input id="reimbursementExpenseId" type="hidden"><button class="btn primary" type="submit">Bayar talangan terpilih</button></form></div></dialog>
-
-  <div id="toast" class="toast"></div>
-  <script src="auth-fix.js?v=1"></script>
-  <script src="app.js?v=2"></script>
-  <script src="management.js?v=1"></script>
-</body>
-</html>
+<dialog id="transactionDialog"><form id="transactionForm" class="dialog-card" method="dialog"><div class="dialog-head"><h3 id="transactionDialogTitle">Tambah transaksi</h3><button type="button" class="close-btn">×</button></div><input id="transactionType" type="hidden"><label>Nominal<input id="transactionAmount" type="number" min="1" required></label><label id="categoryField">Kategori<select id="transactionCategory"></select></label><label id="accountField">Akun<select id="transactionAccount"></select></label><label id="transferFromField" class="hidden">Dari akun<select id="transferFrom"></select></label><label id="transferToField" class="hidden">Ke akun<select id="transferTo"></select></label><label>Tanggal dan waktu<input id="transactionAt" type="datetime-local" required></label><label>Keterangan<textarea id="transactionDescription" rows="2"></textarea></label><button class="btn primary" type="submit">Simpan transaksi</button></form></dialog>
+<dialog id="profilesDialog"><div class="dialog-card"><div class="dialog-head"><h3>Profil keluarga</h3><button type="button" class="modal-close">×</button></div><div id="profilesList" class="mini-list"></div><form id="profileForm" class="subform"><label>Nama<input id="newProfileName" required maxlength="40"></label><div class="two-col"><label>Peran<select id="newProfileRole"><option value="parent">Orang tua</option><option value="child">Anak</option></select></label><label>Hubungan<select id="newProfileRelationship"><option value="wife">Istri</option><option value="child">Anak</option><option value="husband">Suami</option></select></label></div><label>Emoji<input id="newProfileEmoji" maxlength="8" value="👤"></label><button class="btn primary" type="submit">Tambah profil</button></form></div></dialog>
+<dialog id="accountsDialog"><div class="dialog-card"><div class="dialog-head"><h3>Akun & dompet</h3><button type="button" class="modal-close">×</button></div><div id="accountsList" class="mini-list"></div><form id="accountForm" class="subform"><label>Nama akun<input id="newAccountName" required maxlength="60"></label><div class="two-col"><label>Pemilik<select id="newAccountProfile"></select></label><label>Jenis<select id="newAccountType"><option value="cash">Tunai</option><option value="bank">Bank</option><option value="ewallet">E-wallet</option><option value="virtual_balance">Saldo virtual</option></select></label></div><label>Saldo awal<input id="newAccountInitialBalance" type="number" min="0" value="0"></label><button class="btn primary" type="submit">Tambah akun</button></form></div></dialog>
+<dialog id="advanceDialog"><form id="advanceForm" class="dialog-card"><div class="dialog-head"><h3>Pengeluaran anak ditalangi</h3><button type="button" class="modal-close">×</button></div><label>Anak<select id="advanceChild"></select></label><label>Dibayar dari akun<select id="advancePayerAccount"></select></label><label>Nominal<input id="advanceAmount" type="number" min="1" required></label><label>Kategori<select id="advanceCategory"></select></label><label>Keterangan<textarea id="advanceDescription" rows="2"></textarea></label><label>Tanggal dan waktu<input id="advanceAt" type="datetime-local" required></label><button class="btn primary" type="submit">Simpan talangan</button></form></dialog>
+<dialog id="reimbursementsDialog"><div class="dialog-card"><div class="dialog-head"><h3>Talangan keluarga</h3><button type="button" class="modal-close">×</button></div><div id="reimbursementsList" class="mini-list"></div><form id="reimbursementForm" class="subform"><label>Dibayar dari akun<select id="reimbursementFrom"></select></label><label>Diterima di akun<select id="reimbursementTo"></select></label><label>Nominal pembayaran<input id="reimbursementAmount" type="number" min="1" required></label><input id="reimbursementExpenseId" type="hidden"><button class="btn primary" type="submit">Bayar talangan terpilih</button></form></div></dialog>
+<dialog id="membersDialog"><div class="dialog-card"><div class="dialog-head"><h3>Anggota & undangan</h3><button type="button" class="modal-close">×</button></div><div id="membersList" class="mini-list"></div><form id="inviteForm" class="subform"><label>Profil yang dihubungkan<select id="inviteProfile"></select></label><label>Email anggota<input id="inviteEmail" type="email" required placeholder="email istri"></label><label>Hak akses<select id="inviteRole"><option value="admin">Admin keluarga</option><option value="member">Member</option><option value="viewer">Viewer</option></select></label><button class="btn primary" type="submit">Buat undangan</button></form><div id="inviteResult" class="invite-result hidden"></div></div></dialog>
+<dialog id="joinDialog"><form id="joinForm" class="dialog-card"><div class="dialog-head"><h3>Gabung keluarga</h3><button type="button" class="modal-close">×</button></div><label>Kode undangan<input id="joinCode" required placeholder="UJ-XXXXXXXX" autocomplete="off"></label><button class="btn primary" type="submit">Gabung sekarang</button></form></dialog>
+<div id="toast" class="toast"></div>
+<script src="auth-fix.js?v=1"></script><script src="app.js?v=2"></script><script src="management.js?v=1"></script><script src="invite.js?v=1"></script>
+</body></html>

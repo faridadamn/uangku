@@ -52,10 +52,12 @@
 <dialog id="joinDialog"><form id="joinForm" class="dialog-card"><div class="dialog-head"><h3>Gabung keluarga</h3><button type="button" class="modal-close">×</button></div><label>Kode undangan<input id="joinCode" required placeholder="UJ-XXXXXXXX" autocomplete="off"></label><button class="btn primary" type="submit">Gabung sekarang</button></form></dialog>
 <dialog id="forecastDialog"><div class="dialog-card">
   <div class="dialog-head"><h3>Jadwal & Forecast</h3><button type="button" class="modal-close">×</button></div>
+  <div class="forecast-horizon"><span class="muted-label">Proyeksi sampai</span>
+  <select id="forecastHorizon"><option value="90">90 hari</option><option value="180">6 bulan</option><option value="365" selected>1 tahun</option><option value="730">2 tahun</option></select></div>
   <div class="forecast-summary">
     <div class="stat-card"><span>Sekarang</span><strong id="forecastCurrentBalance">Rp0</strong></div>
     <div class="stat-card"><span>30 hari</span><strong id="forecastBalance30">Rp0</strong></div>
-    <div class="stat-card"><span>90 hari</span><strong id="forecastBalance90">Rp0</strong></div>
+    <div class="stat-card"><span id="forecastBalanceHorizonLabel">Proyeksi</span><strong id="forecastBalanceHorizon">Rp0</strong></div>
   </div>
   <div class="schedule-tabs">
     <button type="button" class="schedule-tab active" data-pane="paneTagihan">Tagihan</button>

@@ -36,7 +36,7 @@
       <section class="hero-card"><div class="hero-top"><div><p class="muted-light">Saldo profil</p><h2 id="profileBalance">Rp0</h2></div><span id="profileRole" class="pill">Orang tua</span></div><div class="hero-stats"><div><span>Masuk bulan ini</span><strong id="monthIncome">Rp0</strong></div><div><span>Keluar bulan ini</span><strong id="monthExpense">Rp0</strong></div></div></section>
       <section class="quick-actions four"><button class="quick-btn" data-action="income"><span>＋</span>Pendapatan</button><button class="quick-btn" data-action="expense"><span>−</span>Pengeluaran</button><button class="quick-btn" data-action="transfer"><span>⇄</span>Transfer</button><button id="advanceExpenseBtn" class="quick-btn"><span>⌁</span>Talangan Anak</button></section>
       <section class="family-grid"><article class="stat-card"><span>Total keluarga</span><strong id="familyBalance">Rp0</strong><small>Seluruh akun aktif</small></article><article id="reimbursementCard" class="stat-card accent clickable"><span>Saldo talangan</span><strong id="pendingReimbursements">Rp0</strong><small>Talangan virtual yang belum dilunasi</small></article></section>
-      <section class="management-grid"><button id="manageProfilesBtn" class="manage-card"><span>👨‍👩‍👧‍👦</span><div><strong>Profil keluarga</strong><small>Tambah istri dan anak</small></div></button><button id="manageAccountsBtn" class="manage-card"><span>◫</span><div><strong>Akun & dompet</strong><small>Kelola tempat uang</small></div></button><button id="manageMembersBtn" class="manage-card"><span>✉</span><div><strong>Anggota & undangan</strong><small>Hubungkan login istri</small></div></button></section>
+      <section class="management-grid"><button id="manageProfilesBtn" class="manage-card"><span>👨‍👩‍👧‍👦</span><div><strong>Profil keluarga</strong><small>Tambah istri dan anak</small></div></button><button id="manageAccountsBtn" class="manage-card"><span>◫</span><div><strong>Akun & dompet</strong><small>Kelola tempat uang</small></div></button><button id="manageMembersBtn" class="manage-card"><span>✉</span><div><strong>Anggota & undangan</strong><small>Hubungkan login istri</small></div></button><button id="manageForecastBtn" class="manage-card"><span>📅</span><div><strong>Jadwal & Forecast</strong><small>Tagihan berulang & proyeksi saldo</small></div></button></section>
       <section class="section-head"><div><p class="eyebrow">AKTIVITAS</p><h3>Transaksi terbaru</h3></div><select id="sourceFilter" class="compact-select"><option value="all">Semua sumber</option><option value="orderan">Orderan</option><option value="uangku">UangKu</option></select></section>
       <div id="transactionList" class="transaction-list"></div>
     </div>
@@ -50,6 +50,40 @@
 <dialog id="reimbursementsDialog"><div class="dialog-card"><div class="dialog-head"><h3>Talangan keluarga</h3><button type="button" class="modal-close">×</button></div><div id="reimbursementsList" class="mini-list"></div><form id="reimbursementForm" class="subform"><label>Dibayar dari akun<select id="reimbursementFrom"></select></label><label>Diterima di akun<select id="reimbursementTo"></select></label><label>Total pembayaran<input id="reimbursementAmount" type="number" min="1" required readonly></label><input id="reimbursementExpenseId" type="hidden"><button class="btn primary" type="submit">Lunasi talangan terpilih</button></form></div></dialog>
 <dialog id="membersDialog"><div class="dialog-card"><div class="dialog-head"><h3>Anggota & undangan</h3><button type="button" class="modal-close">×</button></div><div id="membersList" class="mini-list"></div><form id="inviteForm" class="subform"><label>Profil yang dihubungkan<select id="inviteProfile"></select></label><label>Email anggota<input id="inviteEmail" type="email" required placeholder="email istri"></label><label>Hak akses<select id="inviteRole"><option value="admin">Admin keluarga</option><option value="member">Member</option><option value="viewer">Viewer</option></select></label><button class="btn primary" type="submit">Buat undangan</button></form><div id="inviteResult" class="invite-result hidden"></div></div></dialog>
 <dialog id="joinDialog"><form id="joinForm" class="dialog-card"><div class="dialog-head"><h3>Gabung keluarga</h3><button type="button" class="modal-close">×</button></div><label>Kode undangan<input id="joinCode" required placeholder="UJ-XXXXXXXX" autocomplete="off"></label><button class="btn primary" type="submit">Gabung sekarang</button></form></dialog>
+<dialog id="forecastDialog"><div class="dialog-card">
+  <div class="dialog-head"><h3>Jadwal & Forecast</h3><button type="button" class="modal-close">×</button></div>
+  <div class="forecast-summary">
+    <div class="stat-card"><span>Sekarang</span><strong id="forecastCurrentBalance">Rp0</strong></div>
+    <div class="stat-card"><span>30 hari</span><strong id="forecastBalance30">Rp0</strong></div>
+    <div class="stat-card"><span>90 hari</span><strong id="forecastBalance90">Rp0</strong></div>
+  </div>
+  <div class="schedule-tabs">
+    <button type="button" class="schedule-tab active" data-pane="paneTagihan">Tagihan</button>
+    <button type="button" class="schedule-tab" data-pane="paneJadwal">Jadwal</button>
+  </div>
+  <div id="paneTagihan" class="schedule-pane active"><div id="occurrenceList" class="mini-list"></div></div>
+  <div id="paneJadwal" class="schedule-pane">
+    <div id="scheduleList" class="mini-list"></div>
+    <form id="scheduleForm" class="subform">
+      <label>Nama<input id="scheduleName" required maxlength="80" placeholder="mis. WiFi bulanan"></label>
+      <div class="two-col">
+        <label>Tipe<select id="scheduleType"><option value="expense">Pengeluaran</option><option value="income">Pemasukan</option></select></label>
+        <label>Nominal<input id="scheduleAmount" type="number" min="1" required></label>
+      </div>
+      <div class="two-col">
+        <label>Berulang<select id="scheduleRecurrence"><option value="monthly">Bulanan</option><option value="weekly">Mingguan</option><option value="daily">Harian</option><option value="yearly">Tahunan</option><option value="once">Sekali</option></select></label>
+        <label>Tiap berapa kali<input id="scheduleInterval" type="number" min="1" value="1"></label>
+      </div>
+      <div class="two-col">
+        <label>Mulai<input id="scheduleStart" type="date" required></label>
+        <label>Sampai (opsional)<input id="scheduleEnd" type="date"></label>
+      </div>
+      <label>Kategori<select id="scheduleCategory"></select></label>
+      <label>Ingatkan berapa hari sebelumnya<input id="scheduleReminderDays" type="number" min="0" value="3"></label>
+      <button class="btn primary" type="submit">Simpan jadwal</button>
+    </form>
+  </div>
+</div></dialog>  
 <div id="toast" class="toast"></div>
-<script src="auth-fix.js?v=1"></script><script src="app.js?v=2"></script><script src="management.js?v=1"></script><script src="invite.js?v=1"></script><script src="ui-upgrade.js?v=1"></script><script src="finance-fixes.js?v=1"></script><script src="ux-flow-fixes.js?v=1"></script><script src="rekap-semantics.js?v=1"></script><script src="rekap-accounting-fix.js?v=1"></script>
+<script src="auth-fix.js?v=1"></script><script src="app.js?v=2"></script><script src="forecast.js?v=1"></script><script src="management.js?v=1"></script><script src="invite.js?v=1"></script><script src="ui-upgrade.js?v=1"></script><script src="finance-fixes.js?v=1"></script><script src="ux-flow-fixes.js?v=1"></script><script src="rekap-semantics.js?v=1"></script><script src="rekap-accounting-fix.js?v=1"></script>
 </body></html>
